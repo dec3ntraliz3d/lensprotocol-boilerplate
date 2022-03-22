@@ -10,7 +10,10 @@ export interface IMainPageMenuProps {
 export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
   <Menu
     style={{
-      textAlign: 'center',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+
     }}
     selectedKeys={[props.route]}
     mode="horizontal">
@@ -41,23 +44,6 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         ExampleUI
       </Link>
     </Menu.Item>
-    <Menu.Item key="/mainnetdai">
-      <Link
-        onClick={(): void => {
-          props.setRoute('/mainnetdai');
-        }}
-        to="/mainnetdai">
-        Mainnet DAI
-      </Link>
-    </Menu.Item>
-    {/* <Menu.Item key="/subgraph">
-      <Link
-        onClick={() => {
-          props.setRoute('/subgraph');
-        }}
-        to="/subgraph">
-        Subgraph
-      </Link>
-    </Menu.Item> */}
+
   </Menu>
 );

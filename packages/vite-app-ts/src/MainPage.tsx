@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
 import '~~/styles/main-page.css';
 
 import { GenericContract } from 'eth-components/ant/generic-contract';
@@ -18,6 +17,7 @@ import { Hints, ExampleUI } from '~~/components/pages';
 import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
 import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 import { NETWORKS } from '~~/models/constants/networks';
+
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -71,19 +71,32 @@ export const Main: FC = () => {
   // -----------------------------
 
   // init contracts
-  const yourContract = useAppContracts('YourContract', ethersContext.chainId);
-  const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
+
+
+  // const yourContract = useAppContracts('YourContract', ethersContext.chainId);
+  // const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
+  const lensHub = useAppContracts('LensHub', NETWORKS.mumbai.chainId);
+
+  // const lensHub = useAppContracts(lenshub), NETWORKS.mumbai.chainId);
+  // const lensHub = LensHub__factory.connect('0xd7B3481De00995046C7850bCe9a5196B7605c367', ethersContext.signer!)
+  // console.log(`Governence address is ${lensHub.getGovernance()}`)
+
+  // const lensHub = new ethers.Contract('0xd7B3481De00995046C7850bCe9a5196B7605c367', abi, ethersContext.signer)
+
+
+
+
 
   // keep track of a variable from the contract in the local React state:
-  const [purpose, update] = useContractReader(
-    yourContract,
-    yourContract?.purpose,
-    [],
-    yourContract?.filters.SetPurpose()
-  );
+  // const [purpose, update] = useContractReader(
+  //   yourContract,
+  //   yourContract?.purpose,
+  //   [],
+  //   yourContract?.filters.SetPurpose()
+  // );
 
   // 📟 Listen for broadcast events
-  const [setPurposeEvents] = useEventListener(yourContract, 'SetPurpose', 0);
+  // const [setPurposeEvents] = useEventListener(yourContract, 'SetPurpose', 0);
 
   // -----------------------------
   // .... 🎇 End of examples
@@ -126,7 +139,7 @@ export const Main: FC = () => {
               price={ethPrice}
             />
           </Route>
-          <Route path="/mainnetdai">
+          {/* <Route path="/mainnetdai">
             {MAINNET_PROVIDER != null && (
               <GenericContract
                 contractName="DAI"
@@ -135,7 +148,7 @@ export const Main: FC = () => {
                 blockExplorer={NETWORKS.mainnet.blockExplorer}
               />
             )}
-          </Route>
+          </Route> */}
           {/* Subgraph also disabled in MainPageMenu, it does not work, see github issue! */}
           {/*
           <Route path="/subgraph">

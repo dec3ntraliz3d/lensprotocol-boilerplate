@@ -17,13 +17,15 @@ export interface IMainPageContractsProps {
  * @returns 
  */
 export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
-  const ethersContext = useEthersContext();
-  const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
-  const yourContract = useAppContracts('YourContract', ethersContext.chainId);
 
-  if (ethersContext.account == null) {
-    return <></>;
-  }
+  // const ethersContext = useEthersContext();
+  // const lensHub = useAppContracts("LensHub", ethersContext.chainId)
+
+  const lensHub = useAppContracts("LensHub", NETWORKS.mumbai.chainId)
+
+  // if (ethersContext.account == null) {
+  //   return <></>;
+  // }
 
   return (
     <>
@@ -34,24 +36,11 @@ export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
           and give you a form to interact with it locally
         ********** */}
         <GenericContract
-          contractName="YourContract"
-          contract={yourContract}
-          mainnetAdaptor={props.scaffoldAppProviders.mainnetAdaptor}
+          contractName="LensHub"
+          contract={lensHub}
+          mainnetAdaptor={props.scaffoldAppProviders.targetNetwork}
           blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
         />
-
-        {/* **********
-         * ❓ uncomment for a second contract:
-         ********** */}
-        {/*
-          <GenericContract
-            contractName="SecondContract"
-            contract={contract={contractList?.['SecondContract']}
-            mainnetProvider={props.appProviders.mainnetProvider}
-            blockExplorer={props.appProviders.targetNetwork.blockExplorer}
-            contractConfig={props.contractConfig}
-          />
-        */}
       </>
     </>
   );
