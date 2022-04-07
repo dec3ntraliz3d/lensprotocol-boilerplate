@@ -21,7 +21,7 @@ function getMainnetSdk(defaultSigner) {
 exports.getMainnetSdk = getMainnetSdk;
 function getPolygonMumbaiSdk(defaultSigner) {
     return {
-        "LensHub": getContract('0xd7B3481De00995046C7850bCe9a5196B7605c367', LensHub_json_1.default, defaultSigner),
+        "LensHub": getContract('0x4BF0c7AD32Fd2d32089790a54485e23f5C7736C0', LensHub_json_1.default, defaultSigner),
     };
 }
 exports.getPolygonMumbaiSdk = getPolygonMumbaiSdk;

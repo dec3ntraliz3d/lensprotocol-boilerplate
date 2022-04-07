@@ -12,8 +12,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
     style={{
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
-
+      justifyContent: 'center',
     }}
     selectedKeys={[props.route]}
     mode="horizontal">
@@ -23,27 +22,26 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
           props.setRoute('/');
         }}
         to="/">
-        Contracts
+        Home
       </Link>
     </Menu.Item>
     <Menu.Item key="/hints">
       <Link
         onClick={(): void => {
-          props.setRoute('/hints');
+          props.setRoute('/settings');
         }}
-        to="/hints">
-        Hints
+        to="/settings">
+        Profile
       </Link>
     </Menu.Item>
-    <Menu.Item key="/exampleui">
+    {/* <Menu.Item key="/contracts">
       <Link
         onClick={(): void => {
-          props.setRoute('/exampleui');
+          props.setRoute('/contracts');
         }}
-        to="/exampleui">
-        ExampleUI
+        to="/contracts">
+        Contracts
       </Link>
-    </Menu.Item>
-
+    </Menu.Item> */}
   </Menu>
 );

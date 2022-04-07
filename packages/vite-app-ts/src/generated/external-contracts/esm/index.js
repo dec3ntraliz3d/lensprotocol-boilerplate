@@ -13,6 +13,6 @@ export function getMainnetSdk(defaultSigner) {
 }
 export function getPolygonMumbaiSdk(defaultSigner) {
     return {
-        "LensHub": getContract('0xd7B3481De00995046C7850bCe9a5196B7605c367', polygonMumbaiLensHubAbi, defaultSigner),
+        "LensHub": getContract('0x4BF0c7AD32Fd2d32089790a54485e23f5C7736C0', polygonMumbaiLensHubAbi, defaultSigner),
     };
 }

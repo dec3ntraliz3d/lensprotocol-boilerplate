@@ -18,6 +18,6 @@ export const externalContractsAddressMap: TExternalContractsAddressMap = {
     UNI: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
   },
   [NetworkID.POLYGON_MUMBAI]: {
-    LensHub: '0xd7B3481De00995046C7850bCe9a5196B7605c367'
-  }
+    LensHub: '0x4BF0c7AD32Fd2d32089790a54485e23f5C7736C0',
+  },
 };

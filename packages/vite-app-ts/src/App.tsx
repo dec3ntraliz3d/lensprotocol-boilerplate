@@ -3,9 +3,11 @@ import { EthersAppContext } from 'eth-hooks/context';
 import { lazier } from 'eth-hooks/helpers';
 import React, { FC, Suspense } from 'react';
 import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
-
 import { ErrorBoundary, ErrorFallback } from '~~/components/common/ErrorFallback';
 import { ContractsAppContext } from '~~/config/contractContext';
+import { ApolloProvider } from '@apollo/client';
+import client from './apollo';
+import { NotificationProvider } from 'web3uikit';
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -56,21 +58,25 @@ const MainPage = lazier(() => import('./MainPage'), 'Main');
 const App: FC = () => {
   console.log('loading app...');
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <EthComponentsSettingsContext.Provider value={ethComponentsSettings}>
-        <ContractsAppContext>
-          <EthersAppContext>
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <ThemeSwitcherProvider themeMap={themes} defaultTheme={savedTheme || 'light'}>
-                <Suspense fallback={<div />}>
-                  <MainPage />
-                </Suspense>
-              </ThemeSwitcherProvider>
-            </ErrorBoundary>
-          </EthersAppContext>
-        </ContractsAppContext>
-      </EthComponentsSettingsContext.Provider>
-    </ErrorBoundary>
+    <ApolloProvider client={client}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <EthComponentsSettingsContext.Provider value={ethComponentsSettings}>
+          <ContractsAppContext>
+            <EthersAppContext>
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <ThemeSwitcherProvider themeMap={themes} defaultTheme={savedTheme || 'light'}>
+                  <Suspense fallback={<div />}>
+                    <NotificationProvider>
+                      <MainPage />
+                    </NotificationProvider>
+                  </Suspense>
+                </ThemeSwitcherProvider>
+              </ErrorBoundary>
+            </EthersAppContext>
+          </ContractsAppContext>
+        </EthComponentsSettingsContext.Provider>
+      </ErrorBoundary>
+    </ApolloProvider>
   );
 };
 

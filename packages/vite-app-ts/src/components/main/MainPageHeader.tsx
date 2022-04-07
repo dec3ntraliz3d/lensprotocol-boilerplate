@@ -30,13 +30,14 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
   /**
    * this shows the page header and other informaiton
    */
+
   const left = (
-    <>
-      <div>
+    <div className="flex justify-center md:justify-start">
+      <div className="mt-24 md:mt-auto">
         <PageHeader
-          title="🏭 Lens-Protocol-Boilerplate "
+          title="🏭 BuidlGuidl Lens"
           subTitle={
-            <span>
+            <span className="disabled:sm:">
               <a href="https://github.com/dec3ntraliz3d/svg-nft-vrf" target="_blank" rel="noreferrer">
                 <span style={{ marginRight: 4 }}>-</span> by @dec3ntraliz3d
               </a>
@@ -46,7 +47,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
         />
       </div>
       {props.children}
-    </>
+    </div>
   );
   /**
    * 👨‍💼 Your account is in the top right with a wallet at connect options
@@ -66,7 +67,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
   );
 
   /**
-   * display the current network on the top left
+   * display the current network on the top right
    */
   let networkDisplay: ReactElement | undefined;
   if (selectedChainId && selectedChainId !== props.scaffoldAppProviders.targetNetwork.chainId) {
@@ -97,10 +98,10 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
   }
 
   return (
-    <>
+    <div>
       {left}
       {networkDisplay}
       {right}
-    </>
+    </div>
   );
 };
