@@ -58,7 +58,12 @@ export default defineConfig({
     jsxFactory: 'jsx',
     jsxInject: `import {jsx, css} from '@emotion/react'`,
   },
-  define: {},
+  define: {
+    /* Added this line to resolve a error on production environment   */
+    //https://github.com/apollographql/apollo-client/issues/8674#issuecomment-916599550
+    __DEV__: (process.env.mode === 'development').toString(),
+  },
+
   optimizeDeps: {
     exclude: excludeDeps,
     include: ['eth-hooks', 'eth-components'],

@@ -1,15 +1,15 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
-import Publication from './home/Publication';
-import { GET_PUBLICATION, GET_PUBLICATIONS } from '../common/queries/publications';
-import { formatImage } from '../common/helpful_functions/formatImage';
+import Publication from '../../home/Publication';
+import { GET_PUBLICATION, GET_PUBLICATIONS } from '../../../common/queries/publications';
+import { formatImage } from '../../../common/helpful_functions/formatImage';
 import { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
-import { uploadIpfs } from '../common/helpful_functions/ipfs';
-import { CREATE_COMMENT_TYPED_DATA } from '../common/queries/typed-data';
+import { uploadIpfs } from '../../../common/helpful_functions/ipfs';
+import { CREATE_COMMENT_TYPED_DATA } from '../../../common/queries/typed-data';
 import { useEthersContext } from 'eth-hooks/context';
-import { omit } from '../common/helpful_functions/omit';
+import { omit } from '../../../common/helpful_functions/omit';
 import { useAppContracts } from '~~/config/contractContext';
 import { NETWORKS } from '~~/models/constants/networks';
 import { splitSignature } from '@ethersproject/bytes';
@@ -18,7 +18,7 @@ import { EthComponentsSettingsContext } from 'eth-components/models';
 import { useGasPrice } from 'eth-hooks';
 import { transactor, TTransactorFunc } from 'eth-components/functions';
 import { useNotification } from 'web3uikit';
-import { IProfile } from '../common/interfaces/interfaces';
+import { IProfile } from '../../../common/interfaces/interfaces';
 
 interface Props {
   profile: IProfile | undefined;

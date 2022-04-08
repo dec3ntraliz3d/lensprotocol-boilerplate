@@ -15,3 +15,5 @@ export interface IProfile {
   };
   followModule: any;
 }
+
+export interface IPublication {}

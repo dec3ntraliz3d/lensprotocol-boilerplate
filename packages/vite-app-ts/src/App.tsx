@@ -58,25 +58,25 @@ const MainPage = lazier(() => import('./MainPage'), 'Main');
 const App: FC = () => {
   console.log('loading app...');
   return (
-    <ApolloProvider client={client}>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <EthComponentsSettingsContext.Provider value={ethComponentsSettings}>
-          <ContractsAppContext>
-            <EthersAppContext>
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <ThemeSwitcherProvider themeMap={themes} defaultTheme={savedTheme || 'light'}>
-                  <Suspense fallback={<div />}>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <EthComponentsSettingsContext.Provider value={ethComponentsSettings}>
+        <ContractsAppContext>
+          <EthersAppContext>
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <ThemeSwitcherProvider themeMap={themes} defaultTheme={savedTheme || 'light'}>
+                <Suspense fallback={<div />}>
+                  <ApolloProvider client={client}>
                     <NotificationProvider>
                       <MainPage />
                     </NotificationProvider>
-                  </Suspense>
-                </ThemeSwitcherProvider>
-              </ErrorBoundary>
-            </EthersAppContext>
-          </ContractsAppContext>
-        </EthComponentsSettingsContext.Provider>
-      </ErrorBoundary>
-    </ApolloProvider>
+                  </ApolloProvider>
+                </Suspense>
+              </ThemeSwitcherProvider>
+            </ErrorBoundary>
+          </EthersAppContext>
+        </ContractsAppContext>
+      </EthComponentsSettingsContext.Provider>
+    </ErrorBoundary>
   );
 };
 

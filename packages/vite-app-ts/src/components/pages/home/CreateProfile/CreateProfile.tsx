@@ -2,8 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import { CREATE_PROFILE, GET_PROFILES } from '../../../common/queries/profiles';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import Polling from './Polling';
-import { usePolling } from '../hooks/usePolling';
-import { IProfile } from '../../../common/interfaces/interfaces';
 import { useNotification } from 'web3uikit';
 import { Button, message } from 'antd';
 

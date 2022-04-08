@@ -12,15 +12,8 @@ import { formatImage } from '../../common/helpful_functions/formatImage';
 import { TTransactorFunc } from 'eth-components/functions';
 import { IProfile } from '../../common/interfaces/interfaces';
 
-export const topCommentVariables = {
-  request: {
-    sortCriteria: 'LATEST',
-    limit: 20,
-  },
-};
-
 interface Props {
-  profile: IProfile;
+  profile: IProfile | undefined;
   updateProfile(): any;
   isSignedIn: boolean;
   updateSignInStatus(status: boolean): any;
@@ -28,7 +21,14 @@ interface Props {
 }
 
 export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSignInStatus, tx }) => {
-  const { loading, error, data } = useQuery(EXPLORE_PUBLICATIONS, { variables: topCommentVariables });
+  const { loading, error, data } = useQuery(EXPLORE_PUBLICATIONS, {
+    variables: {
+      request: {
+        sortCriteria: 'LATEST',
+        limit: 20,
+      },
+    },
+  });
   return (
     <div className="md:w-3/4 m-auto flex flex-col pt-12 space-y-3 pb-20">
       {isSignedIn ? (
