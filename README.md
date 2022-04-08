@@ -6,6 +6,8 @@
 
 ![screenshot](packages/vite-app-ts/images/screenshot2.png)
 
+![screenshot](packages/vite-app-ts/images/screenshot3.png)
+
 ## Typescript
 
 This is the typescript repo of scaffold.eth. The directories that you'll use are:
