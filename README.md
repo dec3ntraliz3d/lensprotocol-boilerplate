@@ -1,4 +1,10 @@
-# 🏗 Scaffold-Eth Typescript
+# 🏗 Buidlguidl-Lens ( Lens protocol boiler-plate with Typescript)
+
+### [Mumbai Live Demo](https://buidlguidl-lens.surge.sh "Lens Protocol Boilerplate")
+
+![screenshot](packages/vite-app-ts/images/screenshot1.png)
+
+![screenshot](packages/vite-app-ts/images/screenshot2.png)
 
 ## Typescript
 
@@ -19,48 +25,38 @@ Running the app
    yarn install
    ```
 
-2. start a hardhat node
+2. Change network, infura key , burner wallet config in /packages/vite-app-ts/.env file.
 
-   ```bash
-   yarn chain
-   ```
+   VITE_APP_TARGET_NETWORK=mumbai
+   HARDHAT_TARGET_NETWORK=mumbai
 
 3. run the app, `open a new command prompt`
 
    ```bash
    # build hardhat & external contracts types
-   yarn contracts:build 
-   # deploy your hardhat contracts
-   yarn deploy
-   # start vite 
-   yarn start 
+   yarn contracts:build
+   # start vite
+   yarn start
    ```
-   
-## Guides
-
-- Check out [eth-hooks docs](https://scaffold-eth.github.io/eth-hooks/docs/overview) for example of how to use hooks
-- you can look at [speedrun ethereum](https://speedrunethereum.com/) to get started with scaffold-eth-typescript and web3.  
-  - 🏁 Make sure to click on the typescript tab!
-
 
 ## Overview
 
-Everything you need to build on Ethereum! 🚀 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
+This repo extensively uses Lensprotocol api. Please check all documentations at
+https://docs.lens.dev/docs
 
-![image](https://user-images.githubusercontent.com/2653167/124158108-c14ca380-da56-11eb-967e-69cde37ca8eb.png)
+## Guides
 
-- 🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat-ts/contracts`
-- 📝 Edit your frontend `MainPage.jsx` in `packages/vite-app-ts/src`
-- 💼 Edit your deployment scripts in `packages/hardhat-ts/deploy`
-- 📱 Open http://localhost:3000 to see the app
+- Check out [eth-hooks docs](https://scaffold-eth.github.io/eth-hooks/docs/overview) for example of how to use hooks
+- you can look at [speedrun ethereum](https://speedrunethereum.com/) to get started with scaffold-eth-typescript and web3.
+  - 🏁 Make sure to click on the typescript tab!
 
 ## More Information!
+
 ### 📚 Documentation
 
 Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
 
-Eth-hooks documentation is [here](https://scaffold-eth.github.io/eth-hooks/).  Learn how to use the contexts here.
-
+Eth-hooks documentation is [here](https://scaffold-eth.github.io/eth-hooks/). Learn how to use the contexts here.
 
 ### 🔭 Learning Solidity
 
@@ -68,8 +64,8 @@ Read the docs: https://docs.soliditylang.org
 
 Go through each topic from [solidity by example](https://solidity-by-example.org) editing `YourContract.sol` in **🏗 scaffold-eth**
 
-
 ### 🏃💨 Speedrun Ethereum
+
 Register as a builder [here](https://speedrunethereum.com) and start on some of the challenges and build a portfolio.
 
 ### 🛠 Buidl
@@ -77,7 +73,6 @@ Register as a builder [here](https://speedrunethereum.com) and start on some of 
 Check out all the [active branches](https://github.com/austintgriffith/scaffold-eth/branches/active), [open issues](https://github.com/austintgriffith/scaffold-eth/issues), and join/fund the 🏰 [BuidlGuidl](https://BuidlGuidl.com)!
 
 [Follow the full Ethereum Speed Run](https://medium.com/@austin_48503/%EF%B8%8Fethereum-dev-speed-run-bd72bcba6a4c)
-
 
 ### 💌 P.S.
 
