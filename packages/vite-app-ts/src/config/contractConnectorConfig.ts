@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { createConnectorForExternalContract, createConnectorForHardhatContract, createConnectorForExternalAbi } from 'eth-hooks/context';
+import {
+  createConnectorForExternalContract,
+  createConnectorForHardhatContract,
+  createConnectorForExternalAbi,
+} from 'eth-hooks/context';
 
 // import hardhatContractsJson from '../generated/hardhat_contracts.json';
 
 import { externalContractsAddressMap } from './externalContractsConfig';
 
-import * as hardhatContracts from '~~/generated/contract-types';
+// import * as hardhatContracts from '~~/generated/contract-types';
 import * as externalContracts from '~~/generated/external-contracts/esm/types';
-
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
@@ -24,8 +27,11 @@ import * as externalContracts from '~~/generated/external-contracts/esm/types';
 export const contractConnectorConfig = () => {
   try {
     const result = {
-
-      LensHub: createConnectorForExternalContract('LensHub', externalContracts.LensHub__factory, externalContractsAddressMap)
+      LensHub: createConnectorForExternalContract(
+        'LensHub',
+        externalContracts.LensHub__factory,
+        externalContractsAddressMap
+      ),
 
       // 🙋🏽‍♂️ Add your hadrdhat contracts here
       // YourContract: createConnectorForHardhatContract(
@@ -38,12 +44,8 @@ export const contractConnectorConfig = () => {
       // DAI: createConnectorForExternalContract('DAI', externalContracts.DAI__factory, externalContractsAddressMap),
       // UNI: createConnectorForExternalContract('UNI', externalContracts.UNI__factory, externalContractsAddressMap),
 
-
       // 🙋🏽‍♂️ Add your external abi here (unverified contracts)`
       // DAI: createConnectorForExternalAbi('DAI', { 1: {address: 'xxxx'}}, abi),
-
-
-
     } as const;
 
     return result;

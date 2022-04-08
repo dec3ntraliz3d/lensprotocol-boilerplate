@@ -6,7 +6,7 @@ import { formatImage } from '../../common/helpful_functions/formatImage';
 import { useParams } from 'react-router-dom';
 import { GET_PUBLICATIONS } from '../../common/queries/publications';
 import Publication from '../home/Publication';
-import { IProfile } from '../../common/interfaces/interfaces';
+import { IProfile, IPublication } from '../../common/interfaces/interfaces';
 import Follow from './Follow';
 import { TTransactorFunc } from 'eth-components/functions';
 
@@ -70,27 +70,14 @@ const Profile: FC<Props> = ({ tx }) => {
           <ul>{profile?.stats?.totalFollowing} Following </ul>
         </li>
         <div className="flex flex-col items-start mb-3">
-          {/* <p>Follow Module:{JSON.stringify(profile.followModule)}</p> */}
           <p> {profile.followModule ?? `Anyone can follow @${profile.handle}`}</p>
           <Follow profileId={profile.id} followModule={profile?.followModule} tx={tx} />
         </div>
       </div>
 
       <div>
-        {publications.data?.publications?.items?.map((item: any) => (
-          <Publication
-            key={item.id}
-            id={item.id}
-            profileId={item.profile.id}
-            handle={item.profile.handle}
-            pfp={formatImage(item.profile?.picture?.original?.url) ?? '../assets/emptyPfp.png'}
-            name={item.profile.name}
-            content={item.metadata.content}
-            totalAmountOfComments={item.stats.totalAmountOfComments}
-            totalAmountOfMirrors={item.stats.totalAmountOfMirrors}
-            totalAmountOfCollects={item.stats.totalAmountOfCollects}
-            tx={tx}
-          />
+        {publications.data?.publications?.items?.map((item: IPublication) => (
+          <Publication publication={item} tx={tx} />
         ))}
       </div>
     </div>

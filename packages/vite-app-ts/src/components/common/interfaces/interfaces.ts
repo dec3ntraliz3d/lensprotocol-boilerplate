@@ -16,4 +16,28 @@ export interface IProfile {
   followModule: any;
 }
 
-export interface IPublication {}
+export interface IPublication {
+  id: string;
+  profile: IProfile;
+  stats: IMetadataStats;
+  metadata: IMetadata;
+  createdAt: string;
+  collectModule: ICollectModule;
+}
+
+export interface IMetadataStats {
+  totalAmountOfComments?: number;
+  totalAmountOfMirrors?: number;
+  totalAmountOfCollects?: number;
+}
+
+export interface IMetadata {
+  name?: string;
+  description?: string;
+  content?: string;
+}
+
+export interface ICollectModule {
+  __typename: string;
+  type: string;
+}

@@ -8,9 +8,8 @@ import { EXPLORE_PUBLICATIONS } from '../../common/queries/publications';
 import CreateProfile from './CreateProfile/CreateProfile';
 import SignIn from './SignIn';
 import Post from './Post';
-import { formatImage } from '../../common/helpful_functions/formatImage';
 import { TTransactorFunc } from 'eth-components/functions';
-import { IProfile } from '../../common/interfaces/interfaces';
+import { IProfile, IPublication } from '../../common/interfaces/interfaces';
 
 interface Props {
   profile: IProfile | undefined;
@@ -43,22 +42,7 @@ export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSign
         <SignIn updateSignInStatus={updateSignInStatus} updateProfile={updateProfile} />
       )}
 
-      {data &&
-        data.explorePublications.items.map((item: any) => (
-          <Publication
-            key={item.id}
-            id={item.id}
-            profileId={item.profile.id}
-            handle={item.profile.handle}
-            pfp={formatImage(item.profile.picture?.original?.url) ?? 'assets/emptyPfp.png'}
-            name={item.profile.name}
-            content={item.metadata.content}
-            totalAmountOfComments={item.stats.totalAmountOfComments}
-            totalAmountOfMirrors={item.stats.totalAmountOfMirrors}
-            totalAmountOfCollects={item.stats.totalAmountOfCollects}
-            tx={tx}
-          />
-        ))}
+      {data && data.explorePublications.items.map((item: IPublication) => <Publication publication={item} tx={tx} />)}
     </div>
   );
 };

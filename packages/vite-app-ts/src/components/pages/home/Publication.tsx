@@ -4,41 +4,43 @@ import { CommentOutlined, RetweetOutlined, DownloadOutlined } from '@ant-design/
 import { Link } from 'react-router-dom';
 import Mirror from './Mirror';
 import { TTransactorFunc } from 'eth-components/functions';
+import { IPublication } from '~~/components/common/interfaces/interfaces';
+import { formatImage } from '~~/components/common/helpful_functions/formatImage';
+import { formatSecondsToDayHourMinute } from '~~/components/common/helpful_functions/formatSecondsToDayHourMinute';
 export interface PublicationProps {
-  id: string;
-  profileId: string;
-  handle: string;
-  pfp?: string;
-  name?: string;
-  content?: string;
-  totalAmountOfComments?: number;
-  totalAmountOfMirrors?: number;
-  totalAmountOfCollects?: number;
+  publication: IPublication;
   tx: TTransactorFunc | undefined;
 }
 
-const Publication: FC<PublicationProps> = (props) => {
+const Publication: FC<PublicationProps> = ({ publication, tx }) => {
   const [showMore, setShowMore] = useState<boolean>(false);
   const { currentTheme } = useThemeSwitcher();
   return (
     <div className="flex space-x-1 h-px-400 shadow-sm rounded-md my-3 py-2">
       <div className="w-1/6 flex items-start justify-end">
-        <Link to={`/profile/${props.profileId}`}>
-          <img src={props?.pfp} alt="avatar" className="shadow rounded-full w-12 h-12 align-middle border-none" />
+        <Link to={`/profile/${publication.profile.id}`}>
+          <img
+            src={formatImage(publication.profile.picture?.original?.url) ?? 'assets/emptyPfp.png'}
+            alt="avatar"
+            className="shadow rounded-full w-12 h-12 align-middle border-none"
+          />
         </Link>
       </div>
       <div className=" w-5/6 pr-5">
-        <div className="text-left pl-3">
-          <p>
-            <span className="font-bold">{props.name}</span>
-            <span className="font-light">{'@' + props.handle}</span>
+        {/* <div className="text-left pl-3"> */}
+        <div className="flex justify-between pt-2">
+          <p className="pl-1">
+            <span className="font-bold">{publication.profile?.name}</span>
+            <span className="font-light">{'@' + publication.profile.handle}</span>
           </p>
+          <p>{formatSecondsToDayHourMinute(Date.now() - Date.parse(publication.createdAt))}</p>
         </div>
+
         <div className={`rounded-md ${currentTheme == 'dark' ? 'text-gray-200' : 'text-gray-800 bg-green-50'} `}>
           <p className="text-left">
-            {showMore ? props.content : props.content?.substring(0, 250)}
+            {showMore ? publication.metadata.content : publication.metadata.content?.substring(0, 250)}
 
-            {props.content && props.content.length > 250 && (
+            {publication.metadata.content && publication.metadata.content?.length > 250 && (
               <button
                 className={`ml-2 rounded px-2  
                                 ${
@@ -53,21 +55,20 @@ const Publication: FC<PublicationProps> = (props) => {
           </p>
         </div>
         <div className="flex justify-center space-x-10 md:space-x-14 mt-2">
-          <Link to={`/publication/${props.id}`}>
+          <Link to={`/publication/${publication.id}`}>
             <button className="flex space-x-1 justify-center items-center ">
               <CommentOutlined style={{ color: '#43A047', fontSize: 24 }} />
-              <span>{props.totalAmountOfComments}</span>
+              <span>{publication.stats.totalAmountOfComments}</span>
             </button>
           </Link>
-          <Mirror publicationId={props.id} totalAmountOfMirrors={props.totalAmountOfMirrors} tx={props.tx} />
-
-          {/* <button className="flex space-x-1 justify-center items-center">
-            <RetweetOutlined style={{ color: '#43A047', fontSize: 24 }} />
-            <span>{props.totalAmountOfMirrors}</span>
-          </button> */}
+          <Mirror
+            publicationId={publication.id}
+            totalAmountOfMirrors={publication.stats.totalAmountOfMirrors}
+            tx={tx}
+          />
           <button className="flex space-x-1 justify-center items-center">
             <DownloadOutlined style={{ color: '#43A047', fontSize: 24 }} />
-            <span>{props.totalAmountOfComments}</span>
+            <span>{publication.stats.totalAmountOfComments}</span>
           </button>
         </div>
       </div>

@@ -38,7 +38,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
           title="🏭 BuidlGuidl Lens"
           subTitle={
             <span className="disabled:sm:">
-              <a href="https://github.com/dec3ntraliz3d/svg-nft-vrf" target="_blank" rel="noreferrer">
+              <a href="https://github.com/dec3ntraliz3d/lensprotocol-boilerplate" target="_blank" rel="noreferrer">
                 <span style={{ marginRight: 4 }}>-</span> by @dec3ntraliz3d
               </a>
             </span>

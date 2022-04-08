@@ -18,7 +18,7 @@ import { EthComponentsSettingsContext } from 'eth-components/models';
 import { useGasPrice } from 'eth-hooks';
 import { transactor, TTransactorFunc } from 'eth-components/functions';
 import { useNotification } from 'web3uikit';
-import { IProfile } from '../../common/interfaces/interfaces';
+import { IProfile, IPublication } from '../../common/interfaces/interfaces';
 
 interface Props {
   profile: IProfile | undefined;
@@ -54,11 +54,6 @@ const Comment: FC<Props> = ({ profile, updateProfile, isSignedIn, tx }) => {
     },
     pollInterval: 2000,
   });
-
-  useEffect(() => {
-    console.log(data);
-    console.log(errorCommentTypedData);
-  }, [data, errorCommentTypedData]);
 
   const ethersContext = useEthersContext();
   const lensHub = useAppContracts('LensHub', NETWORKS.mumbai.chainId);
@@ -134,23 +129,7 @@ const Comment: FC<Props> = ({ profile, updateProfile, isSignedIn, tx }) => {
 
   return (
     <div className="m-auto pt-5 px-3 md:w-3/4 pb-20 ">
-      {loading ? (
-        <Spin />
-      ) : (
-        <Publication
-          key={data.publication.id}
-          id={data.publication.id}
-          profileId={data.publication.profile.id}
-          handle={data.publication.profile.handle}
-          pfp={formatImage(data.publication.profile.picture?.original?.url) ?? '../assets/emptyPfp.png'}
-          name={data.publication.profile.name}
-          content={data.publication.metadata.content}
-          totalAmountOfComments={data.publication.stats.totalAmountOfComments}
-          totalAmountOfMirrors={data.publication.stats.totalAmountOfMirrors}
-          totalAmountOfCollects={data.publication.stats.totalAmountOfCollects}
-          tx={tx}
-        />
-      )}
+      {loading ? <Spin /> : <Publication publication={data?.publication} tx={tx} />}
       {isSignedIn && (
         <textarea
           className="w-full px-5 h-20 py-2 text-gray-700 border rounded-lg focus:outline-none"
@@ -170,20 +149,8 @@ const Comment: FC<Props> = ({ profile, updateProfile, isSignedIn, tx }) => {
       )}
 
       {comments &&
-        comments.publications?.items?.map((item: any) => (
-          <Publication
-            key={item.id}
-            id={item.id}
-            profileId={item.profile.id}
-            handle={item.profile.handle}
-            pfp={formatImage(item.profile.picture?.original?.url) ?? '../assets/emptyPfp.png'}
-            name={item.profile.name}
-            content={item.metadata.content}
-            totalAmountOfComments={item.stats.totalAmountOfComments}
-            totalAmountOfMirrors={item.stats.totalAmountOfMirrors}
-            totalAmountOfCollects={item.stats.totalAmountOfCollects}
-            tx={tx}
-          />
+        comments.publications?.items?.map((item: IPublication) => (
+          <Publication key={item.id} publication={item} tx={tx} />
         ))}
     </div>
   );
