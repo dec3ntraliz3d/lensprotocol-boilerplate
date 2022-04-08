@@ -72,15 +72,8 @@ const CreateProfile: FC<Props> = ({ updateProfile }) => {
     });
 
     dispatch({
-      type: 'success',
-      message: 'Profile created',
-      position: 'topR',
-      title: '',
-    });
-
-    dispatch({
       type: 'info',
-      message: 'Indexing data',
+      message: 'Indexing data. Please wait ..',
       position: 'topR',
       title: '',
     });
@@ -106,9 +99,15 @@ const CreateProfile: FC<Props> = ({ updateProfile }) => {
             type="primary"
             onClick={() => {
               setIsCreating(true);
+              dispatch({
+                type: 'info',
+                message: 'Creating Profile please wait ..',
+                position: 'topR',
+                title: '',
+              });
               handleCreateProfile();
             }}
-            disabled={isCreating}>
+            loading={isCreating}>
             Create
           </Button>
         </div>

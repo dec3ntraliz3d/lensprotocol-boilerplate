@@ -18,7 +18,7 @@ import { useLazyQuery } from '@apollo/client';
 import { GET_PROFILES } from './components/common/queries/profiles';
 import { IProfile } from './components/common/interfaces/interfaces';
 import { useLocalStorage } from './components/main/hooks/useLocalStorage';
-import Comment from './components/pages/settings/comment/Comment';
+import Comment from './components/pages/comment/Comment';
 import { EthComponentsSettingsContext } from 'eth-components/models';
 import { useGasPrice } from 'eth-hooks';
 import { transactor } from 'eth-components/functions';

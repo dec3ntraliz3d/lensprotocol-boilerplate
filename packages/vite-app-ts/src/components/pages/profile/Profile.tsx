@@ -27,6 +27,7 @@ const Profile: FC<Props> = ({ tx }) => {
         publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
       },
     },
+    pollInterval: 2000,
   });
 
   if (loading || publications.loading) return <Spin />;
@@ -36,6 +37,7 @@ const Profile: FC<Props> = ({ tx }) => {
     console.log(publications.error);
     return <div>Error Fetching data ! Check console.log</div>;
   }
+
   const profile: IProfile = data.profiles.items[0];
   return (
     <div className="m-auto pt-5 px-3 md:w-3/4 pb-20 ">
