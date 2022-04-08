@@ -27,7 +27,6 @@ const Publication: FC<PublicationProps> = ({ publication, tx }) => {
         </Link>
       </div>
       <div className=" w-5/6 pr-5">
-        {/* <div className="text-left pl-3"> */}
         <div className="flex justify-between pt-2">
           <p className="pl-1">
             <span className="font-bold">{publication.profile?.name}</span>
