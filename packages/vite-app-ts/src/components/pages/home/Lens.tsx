@@ -23,17 +23,20 @@ interface Props {
 
 export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSignInStatus, tx }) => {
   const [nextCursor, setNextCursor] = useState();
+  const [sortCriteria, setSortCriteria] = useState('TOP_COMMENTED');
   const [publications, setPublications] = useState<IPublication[]>([]);
-  const { loading, error, data, fetchMore } = useQuery(EXPLORE_PUBLICATIONS, {
+  const { loading, error, data, fetchMore, refetch } = useQuery(EXPLORE_PUBLICATIONS, {
     variables: {
       request: {
-        sortCriteria: 'TOP_COMMENTED',
-        limit: 10,
+        sortCriteria,
+        limit: 5,
         noRandomize: true,
       },
     },
     onCompleted: (data) => {
-      setPublications(data.explorePublications.items);
+      sortCriteria === 'LATEST'
+        ? setPublications([...data.explorePublications.items].reverse())
+        : setPublications(data.explorePublications.items);
       setNextCursor(data.explorePublications.pageInfo.next);
     },
   });
@@ -46,23 +49,32 @@ export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSign
       const result: any = await fetchMore({
         variables: {
           request: {
-            sortCriteria: 'TOP_COMMENTED',
-            limit: 10,
+            sortCriteria,
+            limit: 5,
             cursor: nextCursor,
+            noRandomize: true,
           },
         },
       });
-      console.log(result);
-      console.log(nextCursor);
+
       if (result.data) {
         setNextCursor(result.data.explorePublications.pageInfo.next);
-        setPublications([...publications, ...result.data.explorePublications.items]);
+        sortCriteria === 'LATEST'
+          ? setPublications([...publications, ...result.data.explorePublications.items.reverse()])
+          : setPublications([...publications, ...result.data.explorePublications.items]);
       }
     },
   });
 
+  const updateSortCriteria = (sortCriteria: string) => {
+    setSortCriteria(sortCriteria);
+  };
+
   if (loading) return <Spin size="large" />;
   if (error) return <div className="mt-10"> Error loading data </div>;
+
+  // const reversePublications = publications.reverse();
+  // console.log({ publications, reversePublications });
 
   return (
     <div className="md:w-3/4 m-auto flex flex-col pt-12 space-y-3 pb-20">
@@ -77,10 +89,10 @@ export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSign
       ) : (
         <SignIn updateSignInStatus={updateSignInStatus} updateProfile={updateProfile} />
       )}
-      {/* <FeedMenu /> */}
+      <FeedMenu updateSortCriteria={updateSortCriteria} />
 
       {publications?.map((item: IPublication) => (
-        <Publication publication={item} tx={tx} />
+        <Publication publication={item} tx={tx} key={item.id} />
       ))}
       {nextCursor && (
         <span ref={observe} className="flex justify-center p-5">
