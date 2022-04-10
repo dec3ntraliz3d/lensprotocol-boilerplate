@@ -1,12 +1,14 @@
 import { FC } from 'react';
 import { formatImage } from '../../common/helpful_functions/formatImage';
 import { IProfile } from '../../common/interfaces/interfaces';
+import { Button } from 'antd';
 
 interface Props {
   profile: IProfile | undefined;
+  showDeleteModal(isModalVisible: boolean): void;
 }
 
-export const ProfileDetails: FC<Props> = ({ profile }) => {
+export const ProfileDetails: FC<Props> = ({ profile, showDeleteModal }) => {
   return (
     <div className="col-span-1 py-3">
       <div className="flex flex-col items-center md:items-start ">
@@ -20,9 +22,16 @@ export const ProfileDetails: FC<Props> = ({ profile }) => {
           <br />
           {profile?.bio}
           <br />
-          Twitter: {profile?.twitterUrl}
+          Twitter:{' '}
+          <a href={profile?.twitterUrl} target="_blank">
+            {' '}
+            {profile?.twitterUrl}
+          </a>
           <br />
-          Website: {profile?.website}
+          Website:{' '}
+          <a href={profile?.website} target="_blank">
+            {profile?.website}
+          </a>
           <br />
           Location: {profile?.location}
         </p>
@@ -30,6 +39,14 @@ export const ProfileDetails: FC<Props> = ({ profile }) => {
           <ul>{profile?.stats.totalFollowers} Follower</ul>
           <ul>{profile?.stats.totalFollowing} Following </ul>
         </li>
+        <Button
+          type="primary"
+          danger
+          onClick={() => {
+            showDeleteModal(true);
+          }}>
+          Delete
+        </Button>
       </div>
     </div>
   );

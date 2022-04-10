@@ -46,8 +46,11 @@ export const Main: FC = () => {
     setProfile(result?.data?.profiles?.items[0]);
   };
 
+  const [counter, setCounter] = useState<number>(0);
+
   useEffect(() => {
-    !ethersContext.active && setIsSignedIn(false);
+    if (ethersContext.account) setIsSignedIn(false);
+    if (profile) setIsSignedIn(false);
   }, [ethersContext?.account]);
 
   const [route, setRoute] = useState<string>('');

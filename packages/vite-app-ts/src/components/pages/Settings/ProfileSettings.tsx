@@ -20,6 +20,7 @@ import { IProfile } from '../../common/interfaces/interfaces';
 import { omit } from '../../common/helpful_functions/omit';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import DeleteModal from './DeleteModal';
 
 const UPDATE_PROFILE = gql`
   mutation ($request: UpdateProfileRequest!) {
@@ -44,9 +45,13 @@ const ProfileSettings: FC<Props> = ({ profile, updateProfile, isSignedIn, tx }) 
   const { loading, error, data } = useQuery(GET_PROFILES, {
     variables: { request: { ownedBy: [ethersContext.account] } },
   });
-
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [updateUserProfile] = useMutation(UPDATE_PROFILE);
   const [getProfileImageTypedData] = useMutation(CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA);
+
+  const showDeleteModal = (isModalVisible: boolean) => {
+    setShowModal(isModalVisible);
+  };
 
   if (loading) return <Spin />;
   if (error)
@@ -121,7 +126,7 @@ const ProfileSettings: FC<Props> = ({ profile, updateProfile, isSignedIn, tx }) 
             bio: data.bio,
             location: data.location,
             website: data.website,
-            twitterUrl: data.twitterHandle,
+            twitterUrl: `https://twitter.com/${data.twitterHandle}`,
             coverPicture: data.coverPicture,
           },
         },
@@ -148,7 +153,12 @@ const ProfileSettings: FC<Props> = ({ profile, updateProfile, isSignedIn, tx }) 
     }
   };
 
-  if (!isSignedIn)
+  if (showModal)
+    return (
+      <DeleteModal tx={tx} profileId={profile?.id} showDeleteModal={showDeleteModal} updateProfile={updateProfile} />
+    );
+
+  if (!isSignedIn || !profile)
     return (
       <div className="mt-14">
         <p className="text-lg">Please Sign-in</p>
@@ -160,7 +170,7 @@ const ProfileSettings: FC<Props> = ({ profile, updateProfile, isSignedIn, tx }) 
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 md:w-2/3 m-auto">
-      <ProfileDetails profile={profile} />
+      <ProfileDetails profile={profile} showDeleteModal={showDeleteModal} />
 
       <div className=" col-span-1 md:col-span-2 ">
         <UpdateForm profile={profile} onSubmit={onSubmit} isUpdating={isUpdating} />

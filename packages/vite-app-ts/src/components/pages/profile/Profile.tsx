@@ -59,9 +59,15 @@ const Profile: FC<Props> = ({ tx }) => {
           <br />
           {profile?.bio}
           <br />
-          Twitter: {profile?.twitterUrl}
+          Twitter:
+          <a href={profile?.twitterUrl} target="_blank">
+            {profile?.twitterUrl}{' '}
+          </a>
           <br />
-          Website: {profile?.website}
+          Website:
+          <a href={profile?.website} target="_blank">
+            {profile?.website}{' '}
+          </a>
           <br />
           Location: {profile?.location}
         </p>

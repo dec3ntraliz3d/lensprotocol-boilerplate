@@ -2538,6 +2538,7 @@ __metadata:
     qrcode.react: ^1.0.1
     react: ^17.0.2
     react-blockies: ^1.4.1
+    react-cool-inview: ^3.0.0
     react-css-theme-switcher: ^0.3.0
     react-dom: ^17.0.2
     react-error-boundary: ^3.1.4
@@ -19434,6 +19435,15 @@ __metadata:
   peerDependencies:
     react: ">=15.0.0"
   checksum: 87139fc2cc682d34ff8633c58ce96f89826cc3127499b623fb1d8c99dd8e1fe21055750a051933ffc500ca9c88aa017930deae963ffc635135c02907e5d75e22
+  languageName: node
+  linkType: hard
+
+"react-cool-inview@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "react-cool-inview@npm:3.0.0"
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: a6b8c70b34e5562e585a5ca4ba7d6ce087dddcf9117b3f0f5d051304a815261eb6300f177911168eece14838e33c5693cbb17ca2c0fb4f98db281080da939a51
   languageName: node
   linkType: hard
 

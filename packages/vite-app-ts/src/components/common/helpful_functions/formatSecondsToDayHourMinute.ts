@@ -8,8 +8,5 @@ export const formatSecondsToDayHourMinute = (milliSeconds: number): string => {
   const hours = Math.floor((milliSeconds % MILLI_SECONDS_IN_DAY) / MILLI_SECONDS_IN_HOUR);
   const minutes = Math.floor(((milliSeconds % MILLI_SECONDS_IN_DAY) % MILLI_SECONDS_IN_HOUR) / MILLI_SECONDS_IN_MINUTE);
 
-  console.log({ days, hours });
-
   return `${days != 0 ? days + 'd' : ''} ${hours != 0 ? hours + 'h' : ''} ${minutes != 0 ? minutes + 'm' : ''}`;
-  return 'testing';
 };
