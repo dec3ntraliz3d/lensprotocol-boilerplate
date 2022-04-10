@@ -38,6 +38,9 @@ const Profile: FC<Props> = ({ tx }) => {
     return <div>Error Fetching data ! Check console.log</div>;
   }
 
+  console.log(data);
+  console.log(publications);
+
   const profile: IProfile = data.profiles.items[0];
   return (
     <div className="m-auto pt-5 px-3 md:w-3/4 pb-20 ">
@@ -75,15 +78,17 @@ const Profile: FC<Props> = ({ tx }) => {
           <ul>{profile?.stats?.totalFollowers} Follower</ul>
           <ul>{profile?.stats?.totalFollowing} Following </ul>
         </li>
-        <div className="flex flex-col items-start mb-3">
-          <p> {profile.followModule ?? `Anyone can follow @${profile.handle}`}</p>
-          <Follow profileId={profile.id} followModule={profile?.followModule} tx={tx} />
-        </div>
+        {(profile.followModule?.__typename === 'FreeFollowModuleSettings' || !profile.followModule) && (
+          <div className="flex flex-col items-start mb-3">
+            <p> {`Anyone can follow @${profile.handle} for free!`}</p>
+            <Follow profileId={profile.id} followModule={profile?.followModule} tx={tx} />
+          </div>
+        )}
       </div>
 
       <div>
         {publications.data?.publications?.items?.map((item: IPublication) => (
-          <Publication publication={item} tx={tx} />
+          <Publication publication={item} tx={tx} key={item.id} />
         ))}
       </div>
     </div>

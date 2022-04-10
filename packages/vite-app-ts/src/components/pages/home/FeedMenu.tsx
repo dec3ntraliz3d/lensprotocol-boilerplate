@@ -9,7 +9,6 @@ const FeedMenu: FC<Props> = ({ updateSortCriteria }) => {
     <div className="flex justify-between m-auto space-x-1 " role="group">
       <button
         className="active:bg-blue-400 focus:bg-blue-400 focus:text-white border px-2 py-1 rounded-md"
-        // autoFocus={true}
         onClick={() => updateSortCriteria('TOP_COMMENTED')}>
         Top Commented
       </button>
