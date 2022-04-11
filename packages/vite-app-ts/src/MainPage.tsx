@@ -6,7 +6,6 @@ import { useEthersContext } from 'eth-hooks/context';
 import { useDexEthPrice } from 'eth-hooks/dapps';
 import { asEthersAdaptor } from 'eth-hooks/functions';
 import { MainPageMenu, MainPageContracts, MainPageHeader } from './components/main';
-import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 import { Lens } from './components/pages/home/Lens';
 import { MAINNET_PROVIDER } from '~~/config/appConfig';
@@ -21,6 +20,7 @@ import Comment from './components/pages/comment/Comment';
 import { EthComponentsSettingsContext } from 'eth-components/models';
 import { useGasPrice } from 'eth-hooks';
 import { transactor } from 'eth-components/functions';
+import { MainPageFooter } from './components/main';
 
 export const Main: FC = () => {
   /* Scaffold Eth boiler-plate code*/
@@ -45,25 +45,31 @@ export const Main: FC = () => {
     const result = await getProfile({ variables: { request: { ownedBy: [ethersContext?.account] } } });
     setProfile(result?.data?.profiles?.items[0]);
   };
-
-  const [counter, setCounter] = useState<number>(0);
-
+  const [address, setAddress] = useLocalStorage<string | undefined>('address', ethersContext?.account);
   useEffect(() => {
-    if (ethersContext.account) setIsSignedIn(false);
-    if (profile) setIsSignedIn(false);
-  }, [ethersContext?.account]);
+    // When user changes metamask account
+    if (ethersContext.account && ethersContext.account != address) {
+      setIsSignedIn(false);
+      setAddress(ethersContext.account);
+    }
+  }, [ethersContext.account]);
 
   const [route, setRoute] = useState<string>('');
   useEffect(() => {
     setRoute(window.location.pathname);
   }, [setRoute]);
+
   const updateSignInStatus = (status: boolean) => {
     setIsSignedIn(status);
   };
 
   return (
     <div className="App">
-      <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
+      <MainPageHeader
+        scaffoldAppProviders={scaffoldAppProviders}
+        price={ethPrice}
+        updateSignInStatus={updateSignInStatus}
+      />
 
       {/* Routes should be added between the <Switch> </Switch> as seen below */}
       <BrowserRouter>
@@ -92,7 +98,7 @@ export const Main: FC = () => {
           </Route>
         </Switch>
       </BrowserRouter>
-      {/* <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} /> */}
+      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
     </div>
   );
 };

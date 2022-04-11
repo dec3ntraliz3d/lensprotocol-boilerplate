@@ -7,7 +7,7 @@ const client = create({
   protocol: 'https',
 });
 
-interface Metadata {
+export interface Metadata {
   content: string;
   description?: string;
   external_url?: string;
@@ -22,7 +22,7 @@ interface Media {
   type: string;
 }
 
-export const uploadIpfs = async (metadata: Metadata) => {
+export const uploadIpfs = async (metadata: Metadata, handle: string | undefined) => {
   const result = await client.add(
     JSON.stringify({
       version: '1.0.0',
@@ -32,7 +32,7 @@ export const uploadIpfs = async (metadata: Metadata) => {
       external_url: metadata.external_url,
       image: metadata.image,
       imageMimeType: metadata.imageMimeType,
-      name: 'Name',
+      name: `posted by @${handle}`,
       attributes: [],
       media: [
         // {

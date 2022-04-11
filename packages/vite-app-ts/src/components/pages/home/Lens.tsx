@@ -10,9 +10,9 @@ import SignIn from './SignIn';
 import Post from './Post';
 import { TTransactorFunc } from 'eth-components/functions';
 import { IProfile, IPublication } from '../../common/interfaces/interfaces';
-import { Button, Spin } from 'antd';
+import { Spin } from 'antd';
 import { useInView } from 'react-cool-inview';
-import FeedMenu from './FeedMenu';
+import FeedSelectionMenu from './FeedSelectionMenu';
 interface Props {
   profile: IProfile | undefined;
   updateProfile(): any;
@@ -20,6 +20,8 @@ interface Props {
   updateSignInStatus(status: boolean): any;
   tx: TTransactorFunc | undefined;
 }
+
+const sortCriteriaButtonLabels = ['Top Commented', 'Latest', 'Top Collected'];
 
 export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSignInStatus, tx }) => {
   const [nextCursor, setNextCursor] = useState();
@@ -41,7 +43,7 @@ export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSign
     },
   });
 
-  // Took hints from https://github.com/bigint/lenster
+  // Took hints from https://github.com/bigint/lenster for inView code.
   // Give those guys a shoutout
   const { observe } = useInView({
     threshold: 1,
@@ -73,9 +75,6 @@ export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSign
   if (loading) return <Spin size="large" />;
   if (error) return <div className="mt-10"> Error loading data </div>;
 
-  // const reversePublications = publications.reverse();
-  // console.log({ publications, reversePublications });
-
   return (
     <div className="md:w-3/4 m-auto flex flex-col pt-12 space-y-3 pb-20">
       {isSignedIn ? (
@@ -89,7 +88,7 @@ export const Lens: FC<Props> = ({ profile, updateProfile, isSignedIn, updateSign
       ) : (
         <SignIn updateSignInStatus={updateSignInStatus} updateProfile={updateProfile} />
       )}
-      <FeedMenu updateSortCriteria={updateSortCriteria} />
+      <FeedSelectionMenu buttonLabels={sortCriteriaButtonLabels} updateSortCriteria={updateSortCriteria} />
 
       {publications?.map((item: IPublication) => (
         <Publication publication={item} tx={tx} key={item.id} />

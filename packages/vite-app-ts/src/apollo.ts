@@ -24,7 +24,7 @@ const authLink = new ApolloLink((operation, forward) => {
   if (token === 'undefined') {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    // localStorage.removeItem('selectedProfile');
+    localStorage.removeItem('isSignedIn');
     // location.href = '/';
 
     return forward(operation);

@@ -61,7 +61,7 @@ const Comment: FC<Props> = ({ profile, updateProfile, isSignedIn, tx }) => {
   const handleComment = async () => {
     if (!content) return;
     setIsSigning(true);
-    const uploadedContent = await uploadIpfs({ content });
+    const uploadedContent = await uploadIpfs({ content }, profile?.handle);
     try {
       const result = await getCommentTypedData({
         variables: {

@@ -10,8 +10,6 @@ import { NETWORKS } from '~~/models/constants/networks';
 import { splitSignature } from '@ethersproject/bytes';
 import { CREATE_POST_TYPED_DATA } from '../../common/queries/typed-data';
 import { uploadIpfs } from '../../common/helpful_functions/ipfs';
-import { DocumentNode } from 'graphql';
-import { GET_PUBLICATIONS } from '../../common/queries/publications';
 import { Link } from 'react-router-dom';
 import { IProfile } from '../../common/interfaces/interfaces';
 import { formatImage } from '../../common/helpful_functions/formatImage';
@@ -34,7 +32,7 @@ const Post: FC<Props> = ({ profile, tx }) => {
     if (!content) return;
     setIsSigning(true);
     // upload to IPFS and get
-    const uploadedContent = await uploadIpfs({ content });
+    const uploadedContent = await uploadIpfs({ content }, profile.handle);
     // Get typeddata via API.
     try {
       const result = await getPostTypedData({

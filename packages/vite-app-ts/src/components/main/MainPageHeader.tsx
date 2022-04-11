@@ -8,11 +8,13 @@ import React, { FC, ReactElement } from 'react';
 import { FaucetHintButton } from '~~/components/common/FaucetHintButton';
 import { IScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 import { getNetworkInfo } from '~~/functions';
+import Connect from '../common/Connect';
 
 // displays a page header
 export interface IMainPageHeaderProps {
   scaffoldAppProviders: IScaffoldAppProviders;
   price: number;
+  updateSignInStatus(status: boolean): void;
 }
 
 /**
@@ -32,14 +34,14 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
    */
 
   const left = (
-    <div className="flex justify-center md:justify-start">
-      <div className="mt-24 md:mt-auto">
+    <div>
+      <div>
         <PageHeader
           title="🏭 BuidlGuidl Lens"
           subTitle={
-            <span className="disabled:sm:">
+            <span>
               <a href="https://github.com/dec3ntraliz3d/lensprotocol-boilerplate" target="_blank" rel="noreferrer">
-                <span style={{ marginRight: 4 }}>-</span> by @dec3ntraliz3d
+                <span>-</span> by @dec3ntraliz3d
               </a>
             </span>
           }
@@ -53,13 +55,13 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
    * 👨‍💼 Your account is in the top right with a wallet at connect options
    */
   const right = (
-    <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10, zIndex: 1 }}>
-      <Account
+    // <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10, zIndex: 1 }}>
+
+    <div className="m-auto mb-3 md:mr-4 ">
+      <Connect
         createLoginConnector={props.scaffoldAppProviders.createLoginConnector}
-        ensProvider={props.scaffoldAppProviders.mainnetAdaptor?.provider}
-        price={props.price}
-        blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
         hasContextConnect={true}
+        updateSignInStatus={props.updateSignInStatus}
       />
       <FaucetHintButton scaffoldAppProviders={props.scaffoldAppProviders} gasPrice={gasPrice} />
       {props.children}
@@ -98,7 +100,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center md:flex-row md:justify-between md:items-center">
       {left}
       {networkDisplay}
       {right}
